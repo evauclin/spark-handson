@@ -1,5 +1,4 @@
 import unittest
-from pyspark.sql import SparkSession
 from src.fr.hymaia.exo2.aggregate import my_group_by
 from tests.fr.hymaia.spark_test_case import spark
 

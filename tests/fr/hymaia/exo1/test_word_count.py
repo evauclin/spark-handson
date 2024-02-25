@@ -1,6 +1,5 @@
 import unittest
 from src.fr.hymaia.exo1.wordcount import wordcount
-from pyspark.sql import SparkSession
 from tests.fr.hymaia.spark_test_case import spark
 
 
@@ -13,7 +12,7 @@ class TestWordCount(unittest.TestCase):
                 ("hello world",),
                 ("hello",),
             ],
-            ["text"]
+            ["text"],
         )
 
         # When
@@ -25,14 +24,15 @@ class TestWordCount(unittest.TestCase):
             [
                 ("world", 1),
                 ("hello", 2),
-            ]
-            
-            , ["word", "count"])
-        
+            ],
+            ["word", "count"],
+        )
+
         expected_result = [("world", 1), ("hello", 2)]
-        
+
         self.assertEqual(df_result.printSchema(), df_expected_result.printSchema())
         self.assertEqual(parsed_result, expected_result)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -13,7 +13,7 @@ class TestIntegration(unittest.TestCase):
                 ("Bob", 30, 18200),
                 ("Alice", 40, 75200),
             ],
-            ["name", "age", "zip"]
+            ["name", "age", "zip"],
         )
 
         df_city = spark.createDataFrame(
@@ -23,22 +23,27 @@ class TestIntegration(unittest.TestCase):
                 (18200, "Bastia"),
                 (75200, "Paris"),
             ],
-            ["zip", "city"]
+            ["zip", "city"],
         )
 
         df_result = data_cleaning(df_client, df_city)
-        actual_list = [(row["zip"], row["name"], row["age"], row["city"], row["departement"]) for row in df_result.collect()]
+        actual_list = [
+            (row["zip"], row["name"], row["age"], row["city"], row["departement"])
+            for row in df_result.collect()
+        ]
 
         df_expected = spark.createDataFrame(
             [
-            (40100, "John", 25, 'Marseille', "40"),
-            (18200, "Bob", 30, "Bastia", "18"),
-            (75200, "Alice", 40, 'Paris', "75")
-        ],
-            ["zip", "name", "age", "city", "departement"]
+                (40100, "John", 25, "Marseille", "40"),
+                (18200, "Bob", 30, "Bastia", "18"),
+                (75200, "Alice", 40, "Paris", "75"),
+            ],
+            ["zip", "name", "age", "city", "departement"],
         )
-        expected_list = [(row["zip"], row["name"], row["age"], row["city"], row["departement"]) for row in df_expected.collect()]
-
+        expected_list = [
+            (row["zip"], row["name"], row["age"], row["city"], row["departement"])
+            for row in df_expected.collect()
+        ]
 
         self.assertEqual(df_result.printSchema(), df_expected.printSchema())
         self.assertEqual(actual_list, expected_list)
@@ -46,32 +51,29 @@ class TestIntegration(unittest.TestCase):
     def test_integration_aggregate(self):
         df = spark.createDataFrame(
             [
-                (40100, "John", 25, 'Marseille', "40"),
+                (40100, "John", 25, "Marseille", "40"),
                 (18200, "Bob", 30, "Bastia", "18"),
-                (75200, "Alice", 40, 'Paris', "75"),
-                (40100, "x", 25, 'Marseille', "40"),
+                (75200, "Alice", 40, "Paris", "75"),
+                (40100, "x", 25, "Marseille", "40"),
                 (18200, "B", 30, "Bastia", "18"),
-                (75200, "Ace", 40, 'Paris', "75"),
-                (20100, "Joh", 25, 'Marseille', "20")
+                (75200, "Ace", 40, "Paris", "75"),
+                (20100, "Joh", 25, "Marseille", "20"),
             ],
-            ["zip", "name", "age", "city", "departement"]
+            ["zip", "name", "age", "city", "departement"],
         )
 
         df_result = my_group_by(df, "departement")
-        actual_list = [(row["departement"], row["nb_people"]) for row in df_result.collect()]
+        actual_list = [
+            (row["departement"], row["nb_people"]) for row in df_result.collect()
+        ]
 
         df_expected = spark.createDataFrame(
-            [
-                ("18", 2),
-                ("40", 2),
-                ("75", 2),
-                ("20", 1)
-            ],
-            ["departement", "nb_people"]
+            [("18", 2), ("40", 2), ("75", 2), ("20", 1)], ["departement", "nb_people"]
         )
 
-        expected_list = [(row["departement"], row["nb_people"]) for row in df_expected.collect()]
+        expected_list = [
+            (row["departement"], row["nb_people"]) for row in df_expected.collect()
+        ]
 
         self.assertEqual(df_result.printSchema(), df_expected.printSchema())
         self.assertEqual(actual_list, expected_list)
-
