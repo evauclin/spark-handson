@@ -5,7 +5,6 @@ import time
 
 
 def main():
-    start_time = time.time()
 
     spark = (
         SparkSession.builder.appName("exo4")
@@ -26,5 +25,8 @@ def main():
     df = df.withColumn("category_name", addCategoryName(df["category"]))
     df.count()
 
-    end_time = time.time()
-    print("Execution time: ", end_time - start_time)
+
+start_time = time.time()
+main()
+end_time = time.time()
+print("Execution time: ", end_time - start_time)

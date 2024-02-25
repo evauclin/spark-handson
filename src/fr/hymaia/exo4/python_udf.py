@@ -15,7 +15,12 @@ def main():
         "category_name",
         (f.when(f.col("category") < 6, "food").otherwise(("furniture"))),
     )
-    df1.count()
-
     end_time = time.time()
+    df1.count()
     print("Execution time: ", end_time - start_time)
+
+
+start_time = time.time()
+main()
+end_time = time.time()
+print("Execution time: ", end_time - start_time)
