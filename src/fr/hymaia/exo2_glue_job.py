@@ -3,13 +3,8 @@ import sys
 from awsglue.context import GlueContext
 from awsglue.job import Job
 from awsglue.utils import getResolvedOptions
-from pyspark.sql import SparkSession
-
 # TODO : import custom spark code dependencies
-import pyspark.sql.functions as f
-from pyspark.sql import SparkSession, DataFrame
-from src.fr.hymaia.exo1.wordcount import wordcount
-
+from pyspark.sql import SparkSession
 
 if __name__ == "__main__":
     spark = SparkSession.builder.getOrCreate()

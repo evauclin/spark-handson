@@ -1,8 +1,8 @@
-from src.fr.hymaia.exo4.no_udf import (
-    calculate_total_price_per_category_per_day_last_30_days,
-    calculate_total_price_per_category_per_day,
-)
 import unittest
+
+from src.fr.hymaia.exo4.no_udf import (
+    calculate_total_price_per_category_per_day,
+    calculate_total_price_per_category_per_day_last_30_days)
 from tests.fr.hymaia.spark_test_case import spark
 
 

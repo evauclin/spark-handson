@@ -1,6 +1,6 @@
 import time
+
 from pyspark.sql import SparkSession
-import pyspark.sql.functions as f
 from pyspark.sql.functions import udf
 from pyspark.sql.types import StringType
 
@@ -24,9 +24,5 @@ def main():
     start_time = time.time()
     # df.write.csv("resultat1.csv", header=True, mode="overwrite")
     df.count()
-    df = df.withColumn("time", f.lit(time.time() - start_time))
-    df.show()
-
-
-if __name__ == "__main__":
-    main()
+    end_time = time.time()
+    print("Execution time with UDF: ", end_time - start_time)

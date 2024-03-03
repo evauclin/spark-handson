@@ -1,7 +1,8 @@
-from pyspark.sql import SparkSession, Window
-from pyspark.sql.functions import when, col
-import pyspark.sql.functions as f
 import time
+
+import pyspark.sql.functions as f
+from pyspark.sql import SparkSession, Window
+from pyspark.sql.functions import col, when
 
 
 def add_category_name_without_udf(df):
@@ -47,12 +48,9 @@ def main():
     df = spark.read.csv("src/resources/exo4/sell.csv", header=True)
 
     df = add_category_name_without_udf(df)
+
     start_time = time.time()
     df.write.csv("resultat.csv", header=True, mode="overwrite")
     # df.count()
-    df = df.withColumn("time", f.lit(time.time() - start_time))
-    df.count()
-
-
-if __name__ == "__main__":
-    main()
+    end_time = time.time()
+    print("Execution time without UDF: ", end_time - start_time)

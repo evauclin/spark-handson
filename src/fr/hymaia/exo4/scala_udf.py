@@ -1,13 +1,7 @@
-import pyspark.sql.functions as f
-from pyspark.sql import SparkSession
-from pyspark.sql.column import Column, _to_java_column, _to_seq
 import time
 
-
-import pyspark.sql.functions as f
 from pyspark.sql import SparkSession
 from pyspark.sql.column import Column, _to_java_column, _to_seq
-import time
 
 
 def main():
@@ -29,8 +23,7 @@ def main():
 
     df = df.withColumn("category_name", addCategoryName(df["category"]))
     start_time = time.time()
-    # df.write.csv("resultat.csv", header=True, mode="overwrite")
-    df.count()
+    df.write.csv("resultat.csv", header=True, mode="overwrite")
+    # df.count()
     end_time = time.time()
-    df = df.withColumn("time", f.lit(time.time() - start_time))
-    df.show()
+    print("Execution time with UDF: ", end_time - start_time)

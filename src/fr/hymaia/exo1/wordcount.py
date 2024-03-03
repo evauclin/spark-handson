@@ -1,5 +1,5 @@
 import pyspark.sql.functions as f
-from pyspark.sql import SparkSession, DataFrame
+from pyspark.sql import DataFrame, SparkSession
 
 
 def wordcount(df: DataFrame, col_name: str) -> DataFrame:

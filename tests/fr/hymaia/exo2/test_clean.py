@@ -1,5 +1,6 @@
 import unittest
-from src.fr.hymaia.exo2.clean import departement_format, age_filter, my_join
+
+from src.fr.hymaia.exo2.clean import age_filter, departement_format, my_join
 from tests.fr.hymaia.spark_test_case import spark
 
 

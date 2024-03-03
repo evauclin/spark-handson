@@ -1,4 +1,5 @@
 import unittest
+
 from src.fr.hymaia.exo1.wordcount import wordcount
 from tests.fr.hymaia.spark_test_case import spark
 

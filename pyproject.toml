@@ -9,6 +9,7 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "~3.10.12"
+isort = "^5.13.2"
 
 [tool.poetry.dev-dependencies]
 pyspark = "3.3.0"

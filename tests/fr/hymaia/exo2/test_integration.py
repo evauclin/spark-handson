@@ -1,7 +1,8 @@
-from tests.fr.hymaia.spark_test_case import spark
-from src.fr.hymaia.exo2.clean import data_cleaning
-from src.fr.hymaia.exo2.aggregate import my_group_by
 import unittest
+
+from src.fr.hymaia.exo2.aggregate import my_group_by
+from src.fr.hymaia.exo2.clean import data_cleaning
+from tests.fr.hymaia.spark_test_case import spark
 
 
 class TestIntegration(unittest.TestCase):
