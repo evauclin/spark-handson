@@ -48,9 +48,13 @@ def main():
     df = spark.read.csv("src/resources/exo4/sell.csv", header=True)
 
     df = add_category_name_without_udf(df)
+    df_formated = df.withColumn("date", f.to_date("date"))
 
-    start_time = time.time()
-    df.write.csv("resultat.csv", header=True, mode="overwrite")
+    # calculate_total_price_per_category_per_day(df_formated).show()
+
+    calculate_total_price_per_category_per_day_last_30_days(df_formated).show()
+    # start_time = time.time()
+    # df.write.csv("resultat.csv", header=True, mode="overwrite")
     # df.count()
-    end_time = time.time()
-    print("Execution time without UDF: ", end_time - start_time)
+    # end_time = time.time()
+    # print("Execution time without UDF: ", end_time - start_time)

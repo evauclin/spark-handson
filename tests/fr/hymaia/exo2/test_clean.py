@@ -94,6 +94,61 @@ class TestCleanFunctions(unittest.TestCase):
         self.assertEqual(actual_list, expected_list)
         self.assertEqual(df_result.printSchema(), df_expected.printSchema())
 
+    ################################## Failed test ##################################
+    def test_join_fail(self) -> None:
+        """this function tests the my_join function"""
+        # Given
+        df_clients = spark.createDataFrame(
+            [("Cussac", 27, 75020)], ["name", "age", "zip"]
+        )
+
+        df_city = spark.createDataFrame([(75020, "Paris")], ["zip", "city"])
+
+        # When
+        df_result = my_join(df_clients, df_city, "zip")
+        actual_list = [
+            (row["name"], row["age"], row["zip"], row["city"])
+            for row in df_result.collect()
+        ]
+
+        # Then
+        df_expected = spark.createDataFrame(
+            [("Cussac", 27, 75020, "Oregon")], ["name", "zip", "age", "city"]
+        )
+        expected_list = [
+            (row["name"], row["age"], row["zip"], row["city"])
+            for row in df_expected.collect()
+        ]
+
+        self.assertNotEqual(actual_list, expected_list)
+        self.assertNotEqual(df_result.printSchema, df_expected.printSchema)
+
+    def test_age_filter_fail(self) -> None:
+        """this function tests the age_filter function"""
+        # Given
+        df = spark.createDataFrame(
+            [("Cussac", 27, 75020), ("Etienne", 17, 75020), ("davis", 18, 75020)],
+            ["name", "age", "zip"],
+        )
+
+        # When
+        df_result = age_filter(df, "age")
+        actual_list = [
+            (row["name"], row["age"], row["zip"]) for row in df_result.collect()
+        ]
+
+        # Then
+        df_expected = spark.createDataFrame(
+            [("Cussac", 27, 75020), ("davis", 18, 75020), ("Etienne", 17, 75020)],
+            ["name", "age", "zip"],
+        )
+        expected_list = [
+            (row["name"], row["age"], row["zip"]) for row in df_expected.collect()
+        ]
+
+        self.assertNotEqual(actual_list, expected_list)
+        self.assertNotEqual(df_result.printSchema, df_expected.printSchema)
+
 
 if __name__ == "__main__":
     unittest.main()
