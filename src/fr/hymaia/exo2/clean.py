@@ -3,7 +3,8 @@ from pyspark.sql import DataFrame, SparkSession
 
 
 def departement_format(df: DataFrame) -> DataFrame:
-    """This function adds a column "departement" to the dataframe based on the zip code column. It returns the modified dataframe."""
+    """This function adds a column "departement" to the dataframe based on the zip code column.
+    It returns the modified dataframe."""
     return df.withColumn(
         "departement",
         f.when((f.col("zip") >= 20_000) & (f.col("zip") <= 20_190), "2A")
@@ -16,7 +17,8 @@ def departement_format(df: DataFrame) -> DataFrame:
 
 
 def age_filter(df: DataFrame, column_name: str) -> DataFrame:
-    """This function filters the dataframe based on the age column. It keeps only the rows where the age is greater or equal to 18."""
+    """This function filters the dataframe based on the age column.
+    It keeps only the rows where the age is greater or equal to 18."""
     return df.filter(f.col(column_name) >= 18)
 
 
@@ -34,7 +36,8 @@ def data_cleaning(df_clients: DataFrame, df_city: DataFrame) -> None:
 
 
 def main():
-    """This function reads the clients_bdd.csv and city_zipcode.csv files, cleans the data and writes the result in a parquet file."""
+    """This function reads the clients_bdd.csv and city_zipcode.csv files,
+    cleans the data and writes the result in a parquet file."""
 
     spark = SparkSession.builder.master("local[*]").appName("clean").getOrCreate()
 

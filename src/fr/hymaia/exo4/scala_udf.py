@@ -12,7 +12,10 @@ def main():
         .getOrCreate()
     )
 
-    def addCategoryName(col):
+    def addCategoryName(col: Column) -> Column:
+        """
+        Add a new column to the dataframe that contains the category name.
+        """
         sc = spark.sparkContext
         add_category_name_udf = (
             sc._jvm.fr.hymaia.sparkfordev.udf.Exo4.addCategoryNameCol()

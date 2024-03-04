@@ -5,7 +5,10 @@ from pyspark.sql.functions import udf
 from pyspark.sql.types import StringType
 
 
-def categorize_category(category):
+def categorize_category(category: int) -> str:
+    """
+    This function categorizes the category based on the category number.
+    """
     category = int(category)
     if category < 6:
         return "food"
@@ -13,12 +16,10 @@ def categorize_category(category):
         return "furniture"
 
 
-categorize_category_udf = udf(categorize_category, StringType())
-
-
 def main():
     spark = SparkSession.builder.appName("python_udf").master("local[*]").getOrCreate()
     df = spark.read.csv("src/resources/exo4/sell.csv", header=True)
+    categorize_category_udf = udf(categorize_category, StringType())
     df = df.withColumn("category_name", categorize_category_udf(df["category"]))
 
     start_time = time.time()

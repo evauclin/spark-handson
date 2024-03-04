@@ -185,14 +185,16 @@ poetry build
 aws s3 cp dist/spark_handson-0.1.0-py3-none-any.whl s3://<bucket name>/wheel//spark-handson.whl
 aws s3 cp src/fr/hymaia/exo2_glue_job.py s3://<bucket name>/spark-jobs/
 
-aws s3 cp dist/spark_handson-0.1.0-py3-none-any.whl s3://etienne-bucket-deploy/wheel//spark-handson.whl
-aws s3 cp src/fr/hymaia/exo2_glue_job.py s3://etienne-bucket-deploy/spark-jobs/
+
+aws s3 cp dist/spark_handson-0.1.0-py3-none-any.whl s3://dream-bucket-eti/wheel/spark-handson.whl
+aws s3 cp src/fr/hymaia/exo2_glue_job.py s3://dream-bucket-eti/spark-jobs/
 ```
 
 Une fois fait, mettez à jour votre terraform avec les bons chemins dans S3 pour que votre job Glue retrouve le code python puis relancez un `terraform apply`.
 
 ```
 run aws cli  : aws glue start-job-run --job-name "glue-job" --arguments '{"--additional-python-modules": "s3://etienne-bucket-deploy/wheel/spark-handson.whl", "--PARAM_1": "src/resources/exo1/data.csv", "--PARAM_2": "text"}'
+aws glue start-job-run --job-name "glue-job" --arguments '{"--additional-python-modules": "s3://etienne-bucket-deploy/wheel/spark-handson.whl"}'
 ```
 
 
