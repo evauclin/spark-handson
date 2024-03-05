@@ -3,26 +3,20 @@ import sys
 from awsglue.context import GlueContext
 from awsglue.job import Job
 from awsglue.utils import getResolvedOptions
-
-# TODO : import custom spark code dependencies
 from pyspark.sql import SparkSession
 
-from src.fr.hymaia.exo1.wordcount import wordcount
+from src.fr.hymaia.glue_src import main
 
 if __name__ == "__main__":
     spark = SparkSession.builder.getOrCreate()
     glueContext = GlueContext(spark.sparkContext)
     job = Job(glueContext)
-    args = getResolvedOptions(sys.argv, ["wordcount"], "PARAM_1")
-    job.init(args["wordcount"], args)
+    args = getResolvedOptions(sys.argv, ["JOB_NAME", "df1", "output"])
+    job.init(args["JOB_NAME"], args)
 
-    PARAM_1 = args["PARAM"]
-    # PARAM_2 = args["col_name"]
+    df_1 = args["df1"]
+    output = args["output"]
 
-    df = spark.read.option("header", "true").csv(PARAM_1)
-
-    wordcount_output = wordcount(df, "text")
-
-    wordcount_output.show()
+    main(spark, df_1, output)
 
     job.commit()

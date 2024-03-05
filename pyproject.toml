@@ -4,12 +4,13 @@ version = "0.1.0"
 description = "Résolvez les exercices"
 authors = ["Franck Cussac"]
 packages = [
-    { include = "src/fr/hymaia" },
+    { include = "src/fr/hymaia/" },
 ]
 
 [tool.poetry.dependencies]
-python = "~3.10.12"
+python = "~3.10"
 isort = "^5.13.2"
+black = "^24.2.0"
 
 [tool.poetry.dev-dependencies]
 pyspark = "3.3.0"

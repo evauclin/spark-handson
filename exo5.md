@@ -196,6 +196,14 @@ Une fois fait, mettez à jour votre terraform avec les bons chemins dans S3 pour
 run aws cli  : aws glue start-job-run --job-name "glue-job" --arguments '{"--additional-python-modules": "s3://etienne-bucket-deploy/wheel/spark-handson.whl", "--PARAM_1": "src/resources/exo1/data.csv", "--PARAM_2": "text"}'
 aws glue start-job-run --job-name "glue-job" --arguments '{"--additional-python-modules": "s3://etienne-bucket-deploy/wheel/spark-handson.whl"}'
 ```
+## exemple de cas d'usage
+
+```
+aws s3 cp dist/spark_handson-0.1.0-py3-none-any.whl s3://dream-bucket-eti/wheel/spark_handson-0.1.0-py3-none-any.whl
+aws s3 cp src/fr/hymaia/exo2_glue_job.py s3://dream-bucket-eti/spark-jobs/
+aws s3 cp src/resources/exo1/data.csv s3://dream-bucket-eti/data/data.csv 
+aws glue start-job-run --job-name "etienne_example" --arguments '{"--additional-python-modules": "s3://dream-bucket-eti/wheel/spark_handson-0.1.0-py3-none-any.whl"}'
+```
 
 
 [Précédent](exo4.md) <-

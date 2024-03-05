@@ -14,6 +14,7 @@ data "aws_iam_policy_document" "glue_role_policy" {
     actions = [
       "s3:*",
       "kms:*",
+      "logs:*",
     ]
     effect = "Allow"
     resources = ["*"]

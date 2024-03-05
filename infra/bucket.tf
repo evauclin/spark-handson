@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "bucket" {
-  bucket = "etienne-bucket-deploy"
+  bucket = "dream-bucket-eti"
 
   tags = local.tags
 }
